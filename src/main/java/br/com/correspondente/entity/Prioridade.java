@@ -13,12 +13,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "advogado", schema = "correspondente")
+@Table(name = "prioridade", schema = "correspondente")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Advogado {
-
+@AllArgsConstructor
+public class Prioridade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -26,6 +25,9 @@ public class Advogado {
 
     @Column(name = "nome")
     private String nome;
+
+    @Column(name = "descricao")
+    private String descricao;
 
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;

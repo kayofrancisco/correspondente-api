@@ -4,6 +4,7 @@ BEGIN
     CREATE TABLE IF NOT EXISTS correspondente.atividade (
         id SERIAL PRIMARY KEY,
         nome VARCHAR(100) NOT NULL UNIQUE,
+        descricao VARCHAR(100),
         data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         ativo BOOLEAN DEFAULT TRUE
     );

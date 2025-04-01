@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import br.com.correspondente.entity.Audiencia;
+import br.com.correspondente.exceptions.NegocioException;
 import br.com.correspondente.respository.AudienciaRepository;
 import br.com.correspondente.service.AudienciaService;
+import br.com.correspondente.validators.AudienciaValidator;
 
 @Service("AudienciaService")
 public class AudienciaServiceImpl implements AudienciaService {
@@ -22,7 +24,12 @@ public class AudienciaServiceImpl implements AudienciaService {
     }
 
     @Override
-    public Audiencia salvar(Audiencia audiencia) {
+    public Audiencia salvar(Audiencia audiencia) throws NegocioException {
+        List<String> erros = AudienciaValidator.validarCamposObrigatorios(audiencia);
+
+        if (!erros.isEmpty()) {
+            throw new NegocioException(erros);
+        }
         return repository.save(audiencia);
     }
 }

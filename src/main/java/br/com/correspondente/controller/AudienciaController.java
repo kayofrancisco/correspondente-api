@@ -2,6 +2,7 @@ package br.com.correspondente.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.correspondente.entity.Audiencia;
+import br.com.correspondente.entity.dto.ContentDTO;
 import br.com.correspondente.service.AudienciaService;
+import br.com.correspondente.utils.ResponseUtils;
 
 @RestController
 @RequestMapping(value = "/audiencias", produces = "application/json")
@@ -28,7 +31,11 @@ public class AudienciaController {
     }
 
     @PostMapping
-    public Audiencia salvar(@RequestBody Audiencia audiencia) {
-        return service.salvar(audiencia);
+    public ResponseEntity<ContentDTO<Audiencia>> salvar(@RequestBody Audiencia audiencia) {
+        try {
+            return ResponseUtils.sucesso(service.salvar(audiencia));
+        } catch (Exception e) {
+            return ResponseUtils.falha(e);
+        }
     }
 }
